@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 /** 
  * MIT License
@@ -36,12 +37,13 @@ public class App {
     /**
      * Código de teste 1. Este método...
      * @param vetor Vetor com dados para teste.
-     * @return Uma resposta que significa....
+     * @return Uma resposta que significa a soma do resto dos numeros nos indices pares
      */
     static int codigo1(int[] vetor) {
         int resposta = 0;
-        for (int i = 0; i < vetor.length; i += 2) {
-            resposta += vetor[i]%2;
+        for (int i = 0; i < vetor.length; i += 2) { // f(n) = piso n^2 * 1
+            resposta += vetor[i]%2; // operaçao relevante
+            operacoes++;
         }
         return resposta;
     }
@@ -49,13 +51,14 @@ public class App {
     /**
      * Código de teste 2. Este método...
      * @param vetor Vetor com dados para teste.
-     * @return Uma resposta que significa....
+     * @return Uma resposta que significa os numeros nos indices pares do vetor
      */
     static int codigo2(int[] vetor) {
         int contador = 0;
-        for (int k = (vetor.length - 1); k > 0; k /= 2) {
-            for (int i = 0; i <= k; i++) {
-                contador++;
+        for (int k = (vetor.length - 1); k > 0; k /= 2) { // f(n) = piso log(n-1)
+            for (int i = 0; i <= k; i++) {                // 0(n) = 2n
+                contador++; // operaçao relevante
+                operacoes ++;
             }
 
         }
@@ -66,12 +69,13 @@ public class App {
      * Código de teste 3. Este método...
      * @param vetor Vetor com dados para teste.
      */
-    static void codigo3(int[] vetor) {
+    static void codigo3(int[] vetor) { // bubble sort
         for (int i = 0; i < vetor.length - 1; i++) {
             int menor = i;
             for (int j = i + 1; j < vetor.length; j++) {
-                if (vetor[j] < vetor[menor])
+                if (vetor[j] < vetor[menor]) // operaçao relevante
                     menor = j;
+                    operacoes++;
             }
             int temp = vetor[i];
             vetor[i] = vetor[menor];
@@ -82,13 +86,14 @@ public class App {
     /**
      * Código de teste 4 (recursivo). Este método...
      * @param n Ponto inicial do algoritmo
-     * @return Um inteiro que significa...
+     * @return Um inteiro que significa fibonacci
      */
     static int codigo4(int n) {
+        operacoes ++;
         if (n <= 2)
-            return 1;
+            return 1; // operacao relevante
         else
-            return codigo4(n - 1) + codigo4(n - 2);
+            return codigo4(n - 1) + codigo4(n - 2); // operaçao relevante
     }
 
     /**
@@ -99,12 +104,49 @@ public class App {
     static int[] gerarVetor(int tamanho){
         int[] vetor = new int[tamanho];
         for (int i = 0; i < tamanho; i++) {
-            vetor[i] = aleatorio.nextInt(1, tamanho/2);
+            vetor[i] = aleatorio.nextInt(1, tamanho/2); 
         }
         return vetor;
         
     }
     public static void main(String[] args) {
-        
+        testeCodigo();
     }
+
+    public static void testeCodigo(){
+        for (int i = 0; i < tamanhosTesteGrande.length; i++){
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            codigo1(gerarVetor(i));
+            long fim = System.nanoTime();
+            double tempo = (fim - inicio) * nanoToMilli;
+            System.out.println("Numero de operaçoes no codigo 1 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
+        }
+        for (int i = 0; i < tamanhosTesteGrande.length; i++){
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            codigo2(gerarVetor(i));
+            long fim = System.nanoTime();
+            double tempo = (fim - inicio) * nanoToMilli;
+            System.out.println("Numero de operaçoes no codigo 2 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
+        }
+        for (int i = 0; i < tamanhosTesteMedio.length; i++){
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            codigo3(gerarVetor(i));
+            long fim = System.nanoTime();
+            double tempo = (fim - inicio) * nanoToMilli;
+            System.out.println("Numero de operaçoes no codigo 3 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
+        }
+         for (int i = 0; i < tamanhosTestePequeno.length; i++){
+            operacoes = 0;
+            long inicio = System.nanoTime();
+            codigo4(i);
+            long fim = System.nanoTime();
+            double tempo = (fim - inicio) * nanoToMilli;
+            System.out.println("Numero de operaçoes no codigo 4 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
+        }
+    }
+
+
 }
