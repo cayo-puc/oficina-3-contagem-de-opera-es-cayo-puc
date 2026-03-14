@@ -117,7 +117,7 @@ public class App {
         for (int i = 0; i < tamanhosTesteGrande.length; i++){
             operacoes = 0;
             long inicio = System.nanoTime();
-            codigo1(gerarVetor(i));
+            codigo1(gerarVetor(tamanhosTesteGrande[i]));
             long fim = System.nanoTime();
             double tempo = (fim - inicio) * nanoToMilli;
             System.out.println("Numero de operaçoes no codigo 1 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
@@ -125,7 +125,7 @@ public class App {
         for (int i = 0; i < tamanhosTesteGrande.length; i++){
             operacoes = 0;
             long inicio = System.nanoTime();
-            codigo2(gerarVetor(i));
+            codigo2(gerarVetor(tamanhosTesteGrande[i]));
             long fim = System.nanoTime();
             double tempo = (fim - inicio) * nanoToMilli;
             System.out.println("Numero de operaçoes no codigo 2 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
@@ -133,7 +133,7 @@ public class App {
         for (int i = 0; i < tamanhosTesteMedio.length; i++){
             operacoes = 0;
             long inicio = System.nanoTime();
-            codigo3(gerarVetor(i));
+            codigo3(gerarVetor(tamanhosTesteMedio[i]));
             long fim = System.nanoTime();
             double tempo = (fim - inicio) * nanoToMilli;
             System.out.println("Numero de operaçoes no codigo 3 para vetor no indice " +i+": "+operacoes+"\nTempo para o codigo ser executado: "+tempo);
